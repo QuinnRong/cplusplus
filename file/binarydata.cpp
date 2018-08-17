@@ -49,8 +49,7 @@ void txt2bin(const string& name)
 }
 
 void bin2txt(const string& name, const int& n, const int& c, const int& h, const int& w)
-{
-    /*
+{   /*
     input: bin data(int or float 0~255, float 0~1)
     output: txt data(int 0~255)
     n c h w
