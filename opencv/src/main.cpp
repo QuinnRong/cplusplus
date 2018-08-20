@@ -19,7 +19,7 @@ void displayImage(const string& imgName)
     image = cv::imread(path + "/" + imgName);
     if (image.empty())
     {
-        cout << "Could not open or fine the image" << endl;
+        cout << "Could not open or find the image" << endl;
         return;
     }
     namedWindow("Display window", cv::WINDOW_AUTOSIZE);
@@ -137,7 +137,7 @@ void img2txt(const string& imgName, const string& txtName,
     image = cv::imread(path + "/" + imgName);
     if (image.empty())
     {
-        cout << "Could not open or fine the image" << endl;
+        cout << "Could not open or find the image" << endl;
         return;
     }
 
@@ -165,6 +165,8 @@ void img2txt(const string& imgName, const string& txtName,
         }
     }
     save_txt_nchw(data, path + "/" + txtName, 1, 3, new_h, new_w);
+
+    delete[] data;
 }
 
 void txt2img(const string& txtName, const string& imgName,
