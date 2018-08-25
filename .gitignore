@@ -2,3 +2,4 @@ file/bin/*.bin
 file/txt/*.txt
 fp16/bin
 *exe
+*.out
