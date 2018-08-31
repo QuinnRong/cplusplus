@@ -43,6 +43,40 @@ void save_txt_nchw(Dtype* input, const string& output_file, int N, int C, int H,
 }
 
 template<typename Dtype>
+void load_txt_nchw(const string& input_file, Dtype* output, int N, int C, int H, int W)
+{   /*
+    * input: txt file
+    * n c h w
+    * val val...
+    * output: data buffer
+    */
+    ifstream ifs;
+    ifs.open(input_file, ifstream::in);
+
+    int n0, c0, h0, w0;
+    ifs >> n0 >> c0 >> h0 >> w0;
+    if (n0 != N || c0 != C || h0 != H || w0 != W)
+    {
+        LOG_I_("Dimension not match! N=%d, C=%d, H=%d, W=%d\n", N, C, H, W);
+        return;
+    }
+    for (int c = 0; c < C; ++c)
+    {
+        for (int h = 0; h < H; ++h)
+        {
+            for (int w = 0; w < W; ++w)
+            {
+                int addr = c * W * H + h * W + w;
+                ifs >> output[addr];
+            }
+        }
+    }
+
+    ifs.close();
+    LOG_I_("Read from %s successfully!\n", input_file.c_str());
+}
+
+template<typename Dtype>
 void dumpData(Dtype* input, const string& output_file, int C, int H, int W)
 {   /*
     * input: data buffer
@@ -138,6 +172,8 @@ int main(int argc,char **argv)
     string image = "data/image.jpg";
     string txt = "data/image.txt";
 
+    bool isImage = false;
+
     LOG_I_("Run caffe test\n");
     caffe::Caffe::set_mode(caffe::Caffe::CPU);
     caffe::Net<float>* net;
@@ -146,7 +182,14 @@ int main(int argc,char **argv)
 
     LOG_I_("width=%d, height=%d\n", net->input_blobs()[0]->width(), net->input_blobs()[0]->height());
     float* input_data = new float[net->input_blobs()[0]->width() * net->input_blobs()[0]->height() * 3];
-    img2txt(image, net->input_blobs()[0]->width(), net->input_blobs()[0]->height(), input_data, txt);
+    if (isImage)
+    {
+        img2txt(image, net->input_blobs()[0]->width(), net->input_blobs()[0]->height(), input_data, txt);
+    }
+    else
+    {
+        load_txt_nchw(txt, input_data, 1, 3, net->input_blobs()[0]->height(), net->input_blobs()[0]->width());
+    }
     wrapInputLayer(net, input_data);
 
     LOG_I_("forward...\n");

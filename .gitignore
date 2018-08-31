@@ -1,5 +1,7 @@
 file/bin/*.bin
 file/txt/*.txt
 fp16/bin
+demo
+bin
 *exe
 *.out
