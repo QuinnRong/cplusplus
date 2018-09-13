@@ -7,7 +7,7 @@ bool find(int* matrix, int rows, int cols, int number)
 	while (row < rows && col >= 0)
 	{
 		if (matrix[row * cols + col] > number) --col;
-		else if (matrix[row * cols + col] > number) ++row;
+		else if (matrix[row * cols + col] < number) ++row;
 		else return true;
 	}
 	return false;
