@@ -47,7 +47,7 @@ void QuickSortCore(int *data, int length, int left, int right)
 
 void QuickSort(int *data, int length)
 {
-	if (data == nullptr) return;
+	if (data == nullptr || length <= 0) return;
 	QuickSortCore(data, length, 0, length - 1);
 }
 
