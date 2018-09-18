@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <vector>
 #include <cstdio>
-#include <functional>
+// #include <functional>
 
 /****
 @FunctionName: make_heap, push_heap, pop_heap, sort_heap

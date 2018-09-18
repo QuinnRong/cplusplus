@@ -21,10 +21,32 @@ memset:
 sprintf:
     int sprintf (char * str, const char * format, ...);
     the total number of characters written is returned.
+printf:
+    int printf ( const char * format, ... );
+scanf:
+    int scanf ( const char * format, ... );
 
 @<string>
 to_string:
     string to_string (int||long||unsigned||float||double val);
+c_str:
+    const char* c_str() const;
+substr:
+    string substr (size_t pos = 0, size_t len = npos) const;
+push_back:
+    void push_back (char c);
+pop_back:
+    void pop_back();
+stoi:
+    int stoi (const string&  str, size_t* idx = 0, int base = 10);
+    int stoi (const wstring& str, size_t* idx = 0, int base = 10);
+    idx: set by the function to position of the next character in str after the numerical value.
+stof:
+    float stof (const string&  str, size_t* idx = 0);
+    float stof (const wstring& str, size_t* idx = 0);
+stod:
+    double stod (const string&  str, size_t* idx = 0);
+    double stod (const wstring& str, size_t* idx = 0);
 ****/
 
 int main()
@@ -36,6 +58,7 @@ int main()
     std::string res1 = str1 + str2;
     std::string res2 = str2 + str1;
     printf("%s > %s\n", (res1 > res2)?res1.c_str():res2.c_str(), (res1 > res2)?res2.c_str():res1.c_str());
+    // 12312 > 12123
 
     char cstr1[50]; char cstr2[50];
     char cres1[100]; char cres2[100];
@@ -44,8 +67,9 @@ int main()
     strcpy(cres1, cstr1); strcat(cres1, cstr2);
     strcpy(cres2, cstr2); strcat(cres2, cstr1);
     printf("%s > %s\n", (strcmp(cres1, cres2) > 0)?cres1:cres2, (strcmp(cres1, cres2) > 0)?cres2:cres1);
+    // 12312 > 12123
 
     unsigned char x;
-    x = false; printf("%d\n", x);
-    x = true; printf("%d\n", x);
+    x = false; printf("%d\n", x);   // 0
+    x = true; printf("%d\n", x);    // 1
 }

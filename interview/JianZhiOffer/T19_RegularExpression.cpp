@@ -1,41 +1,38 @@
 #include <cstdio>
 
-bool matchCore(char* str, char* pattern, int idS, int idP)
+bool matchCore(char* str, char* pattern)
 {
-	if (str[idS] == '\0' || pattern[idP] == '\0') return str[idS] == pattern[idP];
+	if (*str == '\0' || *pattern == '\0')
+		return *str == *pattern;
 
-	if (pattern[idP + 1] == '*')
+	if (*(pattern + 1) == '*')
 	{
-		if (str[idS] != pattern[idP])
-		{
-			return matchCore(str, pattern, idS, idP + 2);
-		}
+		if (*str == *pattern)
+			return matchCore(str, pattern + 2) ||
+					matchCore(str + 1, pattern);
 		else
-		{
-			return matchCore(str, pattern, idS, idP + 2) ||
-					matchCore(str, pattern, idS + 1, idP);
-		}
+			return matchCore(str, pattern + 2);
 	}
-	else if (pattern[idP] == '.' || str[idS] == pattern[idP])
-	{
-		return matchCore(str, pattern, idS + 1, idP + 1);
-	}
-	else
-	{
-		return false;
-	}
+
+	if (*pattern == '.' || *str == *pattern)
+		return matchCore(str + 1, pattern + 1);
+
+	return false;
 }
 
 bool match(char* str, char* pattern)
 {
 	if (str == nullptr || pattern == nullptr) return false;
-	return matchCore(str, pattern, 0, 0);
+	return matchCore(str, pattern);
 }
 
 int main()
 {
 	char str[] = "aaa";
-	char pattern1[] = "a.a"; printf("%s\n", match(str, pattern1)?"match":"dismatch");
-	char pattern2[] = "ab*ac*a"; printf("%s\n", match(str, pattern2)?"match":"dismatch");
-	char pattern3[] = "ab*a"; printf("%s\n", match(str, pattern3)?"match":"dismatch");
+	char pattern1[] = "a.a";		// match
+	printf("%s and %7s %s\n", str, pattern1, match(str, pattern1)?"match":"dismatch");
+	char pattern2[] = "ab*ac*a";	// match
+	printf("%s and %7s %s\n", str, pattern2, match(str, pattern2)?"match":"dismatch");
+	char pattern3[] = "ab*a";		// dismatch
+	printf("%s and %7s %s\n", str, pattern3, match(str, pattern3)?"match":"dismatch");
 }

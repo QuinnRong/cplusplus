@@ -22,7 +22,7 @@ string Decode(TreeNode* pRoot, string codes)
 			pTmp = pRoot;
 		}
 		if (codes[i] == '0') pTmp = pTmp->pLeft;
-		else if (codes[i] = '1') pTmp = pTmp->pRight;
+		else if (codes[i] == '1') pTmp = pTmp->pRight;
 	}
 	res += pTmp->mValue;
 	return res;
