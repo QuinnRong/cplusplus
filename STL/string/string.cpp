@@ -72,4 +72,19 @@ int main()
     unsigned char x;
     x = false; printf("%d\n", x);   // 0
     x = true; printf("%d\n", x);    // 1
+
+    const char* pstr1 = "abc";      // "abc" stored in static memory
+    const char* pstr2 = "abc";      // point to the same string constant
+    printf("pstr1 = %p\n", pstr1);  // pstr1 is equal to pstr2
+    printf("pstr2 = %p\n", pstr2);
+
+    // char* pstr3 = "abc";         // ISO C++ forbids
+    // char* pstr4 = "abc";         // ISO C++ forbids
+    // printf("pstr3 = %p\n", pstr3);   // Segmentation fault
+    // printf("pstr4 = %p\n", pstr4);   // Segmentation fault
+
+    const char carr1[] = "abc";     // "abc" stored in stack memory
+    const char carr2[] = "abc";     // "abc" stored in different stack memory
+    printf("carr1 = %p\n", carr1);  // carr1 is inequal to carr2
+    printf("carr2 = %p\n", carr2);
 }

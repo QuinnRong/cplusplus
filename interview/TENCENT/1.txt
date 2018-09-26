@@ -1,3 +1,5 @@
 2
 ababd
 abababd
+
+result: 6
