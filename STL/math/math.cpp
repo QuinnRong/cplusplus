@@ -11,6 +11,8 @@ log:
     double log (double x);
 log10:
     double log10 (double x);
+log2:
+    double log2  (double x);
 sqrt:
     double sqrt (double x);
 ****/
@@ -25,7 +27,8 @@ int main()
 
     int x = 10;
     printf("log(%d) = %f\n", x, log(x));
-    printf("log(%d) = %f\n", x, log10(x));
+    printf("log2(%d) = %f\n", x, log2(x));
+    printf("log10(%d) = %f\n", x, log10(x));
 
     int s = 10;
     printf("sqrt(%d) = %f\n", s, sqrt(s));
@@ -36,6 +39,7 @@ results:
 2^3 = 8
 e^3 = 20.085537
 log(10) = 2.302585
-log(10) = 1.000000
+log2(10) = 3.321928
+log10(10) = 1.000000
 sqrt(10) = 3.162278
 */

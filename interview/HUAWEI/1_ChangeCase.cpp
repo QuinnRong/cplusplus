@@ -1,12 +1,16 @@
 #include <iostream>
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
 int main()
 {
+    freopen("1.txt", "r", stdin);
     string str;
     cin >> str;
+    fclose(stdin);
+
     int diff = 'a' - 'A';
     for (int i = 0; i < str.size(); ++i)
     {
@@ -21,3 +25,8 @@ int main()
     }
     cout << str << endl;
 }
+
+/*
+result:
+hELLO,wORLD!
+*/
