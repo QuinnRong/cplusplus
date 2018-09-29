@@ -33,6 +33,7 @@ void remove_col(string& str)
 
 int main()
 {
+    freopen("3.txt", "r", stdin);
     map<string, string> tpye_map;
 
     string line1, line2;
@@ -78,4 +79,5 @@ int main()
     {
         cout << "none" << endl;
     }
+    fclose(stdin);
 }
