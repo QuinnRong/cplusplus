@@ -17,15 +17,6 @@ memset:
     void * memset (void * ptr, int value, size_t num);
     value is interpreted as an unsigned char (true as 1, false as 0).
 
-@<cstdio>
-sprintf:
-    int sprintf (char * str, const char * format, ...);
-    the total number of characters written is returned.
-printf:
-    int printf ( const char * format, ... );
-scanf:
-    int scanf ( const char * format, ... );
-
 @<string>
 to_string:
     string to_string (int||long||unsigned||float||double val);
@@ -47,6 +38,12 @@ stof:
 stod:
     double stod (const string&  str, size_t* idx = 0);
     double stod (const wstring& str, size_t* idx = 0);
+getline:
+    istream& getline (istream&  is, string& str, char delim);
+    istream& getline (istream&& is, string& str, char delim);
+    istream& getline (istream&  is, string& str);
+    istream& getline (istream&& is, string& str);
+    default delimitation is the newline character, '\n'.
 ****/
 
 int main()

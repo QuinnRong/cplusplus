@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ stdin:
     FILE * stdin;
 stdout:
     FILE * stdout;
+printf:
+    int printf ( const char * format, ... );
 scanf:
     int scanf ( const char * format, ... );
     On success, the number of items of the argument list successfully filled is returned.
@@ -41,6 +44,14 @@ setfill:
     setfill (char_type c);
 setprecision:
     setprecision (int n);
+
+@<sstream>
+istingstream:
+           default (1)  explicit istringstream (ios_base::openmode which = ios_base::in);
+    initialization (2)  explicit istringstream (const string& str,
+                                                ios_base::openmode which = ios_base::in);
+              copy (3)  istringstream (const istringstream&) = delete;
+              move (4)  istringstream (istringstream&& x);
 ****/
 
 int main()
