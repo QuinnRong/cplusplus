@@ -1,0 +1,6 @@
+ABCBDAB
+BDCABA
+
+result:
+AB
+2

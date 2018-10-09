@@ -29,7 +29,7 @@ char* DeleteStr(char* T, char* P)
 		}
 		if (del == false)
 		{
-			if (end != i) Swap(&T[i], &T[end]);
+			if (end != i) Swap(&T[i], &T[end]);	// does not need to swap actually, just putting ahead is ok
 			++end;
 		}
 	}

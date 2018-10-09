@@ -1,0 +1,10 @@
+ABCBDAB
+BDCABA
+
+result:
+LCSubsequence:
+ABCB
+4
+LCSubstring:
+AB
+2
