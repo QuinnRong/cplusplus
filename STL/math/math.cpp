@@ -1,5 +1,6 @@
 #include <cmath>
 #include <cstdio>
+#include <cstdlib>
 
 /****
 @<cmath>
@@ -15,6 +16,17 @@ log2:
     double log2  (double x);
 sqrt:
     double sqrt (double x);
+abs:
+         double abs (     double x);
+          float abs (      float x);
+    long double abs (long double x);
+         double abs (          T x);           // additional overloads for integral types
+
+@<cstdlib>
+abs:
+              int abs (          int n);
+         long int abs (     long int n);
+    long long int abs (long long int n);
 ****/
 
 int main()

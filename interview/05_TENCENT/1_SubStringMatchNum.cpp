@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
-#include <set>
+#include <unordered_set>
 
 using namespace std;
 
@@ -14,8 +14,10 @@ bool NaiveMatcher(string& A, string& B, int idx)
 	return true;
 }
 
-int NaiveCount(set<string>& substrings, string& str, int k)
-{
+int NaiveCount(unordered_set<string>& substrings, string& str, int k)
+{	/*
+	time: O(m*n*k)
+	*/
 	int res = 0;
 	for (auto substring : substrings)
 	{
@@ -24,6 +26,7 @@ int NaiveCount(set<string>& substrings, string& str, int k)
 			if (NaiveMatcher(substring, str, i))
 			{
 				++res;
+				break;
 			}
 		}
 	}
@@ -42,7 +45,7 @@ int KMPMatcher(const string& T, const string& P, int* pi)
 			++q;			// if next character matches
 		if (q == P.size())
 		{
-			++count;
+			++count; break;
 			q = pi[q - 1];	// if pattern matches
 		}
 	}
@@ -63,8 +66,10 @@ void PrefixFun(const string& P, int* pi)
 	}
 }
 
-int KMPCount(set<string>& substrings, string& str, int k)
-{
+int KMPCount(unordered_set<string>& substrings, string& str, int k)
+{	/*
+	time: O(m*n)
+	*/
 	int res = 0;
 	int* pi = new int[k];
 	for (auto pattern : substrings)
@@ -74,6 +79,41 @@ int KMPCount(set<string>& substrings, string& str, int k)
 	}
 	delete[] pi;
 	return res;
+}
+
+int DPCount(const string& X, const string& Y, int k)
+{	/*
+	time: O(m*n)
+	space: O(m*n)
+	*/
+	int** c = new int*[X.size() + 1];
+	for (int i = 0; i <= X.size(); ++i) c[i] = new int[Y.size() + 1];
+
+	for (int i = 0; i <= X.size(); ++i) c[i][0] = 0;
+	for (int j = 0; j <= Y.size(); ++j) c[0][j] = 0;
+
+	unordered_set<string> substrings;
+	for (int i = 1; i <= X.size(); ++i)
+	{
+		for (int j = 1; j <= Y.size(); ++j)
+		{
+			if (X[i - 1] == Y[j - 1]) c[i][j] = c[i - 1][j - 1] + 1;
+			else c[i][j] = 0;
+			if (c[i][j] >= k)
+			{
+				// cout << X.substr(i - k, k) << endl;
+				substrings.insert(X.substr(i - k, k));
+			}
+			// cout << c[i][j] << " ";
+		}
+		// cout << endl;
+	}
+
+	for (auto p : substrings) cout << p << " ";
+	cout << endl;
+
+	delete[] c;
+	return substrings.size();
 }
 
 int main()
@@ -86,7 +126,7 @@ int main()
 	cin >> A >> B;
 	// cout << A << endl; cout << B << endl;
 
-	set<string> substrings;
+	unordered_set<string> substrings;
 	for (int i = 0; i <= A.size() - k; ++i)
 	{
 		substrings.insert(A.substr(i, k));
@@ -96,4 +136,5 @@ int main()
 
 	cout << NaiveCount(substrings, B, k) << endl;
 	cout << KMPCount(substrings, B, k) << endl;
+	cout << DPCount(A, B, k) << endl;
 }

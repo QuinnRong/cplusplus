@@ -23,6 +23,7 @@ int getMin(int N, int x)
 	int res = 0;
 	while (x > 0 && N > 0)
 	{
+		// printf("%d - %d = %d\n", x, N, x - N);
 		++res;
 		x -= N;
 		--N;
@@ -57,4 +58,7 @@ int main()
 		cout << res << endl;
 		return 0;
 	}
+
+	fclose(stdin);
+	return 0;
 }

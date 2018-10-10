@@ -23,6 +23,12 @@ template < class Key,                                     // map::key_type
            class Alloc = allocator<pair<const Key,T> >    // map::allocator_type
            > class map;
 
+find:
+          iterator find ( const key_type& k );
+    const_iterator find ( const key_type& k ) const;
+    return map::end if the specified key is not found.
+    time: Logarithmic in size.
+
 operator[]:
     mapped_type& operator[] (const key_type& k);
     mapped_type& operator[] (key_type&& k);

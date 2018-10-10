@@ -2,4 +2,6 @@
 ababd
 abababd
 
-result: 6
+result:
+3
+bd ba ab

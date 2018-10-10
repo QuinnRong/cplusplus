@@ -6,7 +6,11 @@
 using namespace std;
 
 void getRuns(int** image, int rows, int cols, vector<pair<pair<int, int>, pair<int, int>>>& runs)
-{
+{	/*
+	input: 2D matrix with elements of 1 or 0
+	output: a vector of runs: <<row, label>, <start, end>>, where label is initialized as -1
+	time: O(n^2)
+	*/
 	for (int r = 0; r < rows; ++r)
 	{
 		int start, end;
@@ -48,7 +52,11 @@ void getRuns(int** image, int rows, int cols, vector<pair<pair<int, int>, pair<i
 }
 
 int getEquals(vector<pair<pair<int, int>, pair<int, int>>>& runs, vector<pair<int, int>>& equivalences)
-{
+{	/*
+	input: a vector of runs: <<row, label>, <start, end>>, where label is initialized as -1
+	output: set the labels & record connected labels in the vector equivalences;
+	time: O(n^3)
+	*/
 	int firstRun = 0, lastRun = -1;
 	int firstRunNext = 0;
 	int row = 0, label = 0;
@@ -88,18 +96,18 @@ void BWLabel(int** image, int rows, int cols)
 			labeled[r][c] = 0;
 	}
 
+	printf("\nstep 1:\n");
 	vector<pair<pair<int, int>, pair<int, int>>> runs;
 	getRuns(image, rows, cols, runs);
 
 	vector<pair<int, int>> equivalences;
 	int label = getEquals(runs, equivalences);
 
-	printf("\nstep 1:\n");
 	for (auto run : runs)
 	{
 		int r = run.first.first;
 		for (int c = run.second.first; c <= run.second.second; ++c)
-			labeled[r][c] = run.first.second;
+			labeled[r][c] = run.first.second;	// set the pixal value as its label
 	}
 	for (int r = 0; r < rows; ++r)
 	{
@@ -109,10 +117,9 @@ void BWLabel(int** image, int rows, int cols)
 	}
 	for (auto eq : equivalences)
 		cout << eq.first << "<==>" << eq.second << endl;
-	// for (auto run : runs)
-	// 	cout << run.first.first << "-" << run.first.second << " " << run.second.first << "-" << run.second.second << endl;
 
-	int* hash = new int[label + 1];
+	printf("\nstep 2:\n");
+	int* hash = new int[label + 1];	// quick find problem
 	for (int i = 0; i <= label; ++i) hash[i] = i;
 	for (auto eq : equivalences)
 	{
@@ -122,12 +129,11 @@ void BWLabel(int** image, int rows, int cols)
 		}
 	}
 
-	printf("\nstep 2:\n");
 	for (auto run : runs)
 	{
 		int r = run.first.first;
 		for (int c = run.second.first; c <= run.second.second; ++c)
-			labeled[r][c] = hash[run.first.second];
+			labeled[r][c] = hash[run.first.second]; // set the pixal value as the connected label
 	}
 	for (int r = 0; r < rows; ++r)
 	{
@@ -139,7 +145,8 @@ void BWLabel(int** image, int rows, int cols)
 	for (int i = 0; i <= label; ++i) printf("%d ", hash[i]);
 	printf("\n");
 
-	unordered_map<int, int> filled;
+	printf("\nstep 3:\n");
+	unordered_map<int, int> filled;	// calculate num of pixals for every label
 	filled[0] = 0;
 	for (int r = 0; r < rows; ++r)
 	{
@@ -153,11 +160,10 @@ void BWLabel(int** image, int rows, int cols)
 		}
 	}
 
-	printf("\nstep 3:\n");
 	for (int r = 0; r < rows; ++r)
 	{
 		for (int c = 0; c < cols; ++c)
-			printf("%3d", filled[labeled[r][c]]);
+			printf("%3d", filled[labeled[r][c]]);	// print num of connected pixals at corresponding place
 		printf("\n");
 	}
 	printf("map:\n");
