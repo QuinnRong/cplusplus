@@ -1,0 +1,21 @@
+1. Substitution Method(代入法):
+
+T(n) = a1 T(n / b1) + a2 T(n / b2) + ... + ak T(n / bk) + f(n), where ai >= 1, bi > 1.
+
+a. Assume T(n) = O(g(n));
+b. Substitute into the recursion function;
+c. Prove that there exists a constant c, such that T(n) <= c * g(n) 
+
+
+2. Recursion Tree(递归树):
+
+生成好的猜测，然后用代入法来验证。
+
+
+3. Master Theorem(主定理):
+
+T(n) = a T(n / b) + f(n), where a >= 1, b > 1.
+
+a. f(n) = O(n^[logb(a) - e]), e > 0, 		then T(n) = theta(n^[logb(a)]);
+b. f(n) = theta(n^[logb(a)]), 				then T(n) = theta(n^[logb(a)] * lg(n));
+c. f(n) = omega(n^[logb(a) + e]), e > 0, 	then T(n) = theta(f(n));
