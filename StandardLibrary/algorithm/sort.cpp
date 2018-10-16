@@ -4,14 +4,17 @@
 
 /****
 @algorithm
-template <class RandomAccessIterator>
-  void sort (RandomAccessIterator first, RandomAccessIterator last);
-template <class RandomAccessIterator, class Compare>
-  void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+sort:
+    template <class RandomAccessIterator>
+      void sort (RandomAccessIterator first, RandomAccessIterator last);
+    template <class RandomAccessIterator, class Compare>
+      void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+    must be sequential container!
 
 @cstdlib
-void qsort (void* base, size_t num, size_t size,
-            int (*compar)(const void*, const void*));
+qsort:
+    void qsort (void* base, size_t num, size_t size,
+                int (*compar)(const void*, const void*));
 ****/
 
 int compare(const void* a, const void* b)
