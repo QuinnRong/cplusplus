@@ -15,8 +15,8 @@ void Swap(T& a, T& b)
 RANDOMIZED-QUICKSORT(A, p, r)
 if p < r
 	q = RANDOMIZED-PARTITION(A, p, r)
-	QUICKSORT(A, p, q - 1)
-	QUICKSORT(A, q + 1, r)
+	RANDOMIZED-QUICKSORT(A, p, q - 1)
+	RANDOMIZED-QUICKSORT(A, q + 1, r)
 */
 
 /*

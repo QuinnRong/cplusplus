@@ -24,25 +24,52 @@ PARTITION(A, p, r)
 x = A[r]
 i = p - 1			// last element of the left array
 for j = p to r - 1	// last element of the right array
-	if A[j] <= x
+	if A[j] < x
 		i = i + 1
 		swap A[i] with A[j]
-swap A[i + 1] wiht A[r]
+swap A[i + 1] with A[r]
 return i + 1
+
+or equivalently:
+
+PARTITION(A, p, r)
+x = A[p]
+i = p				// last element of the left array
+for j = p + 1 to r	// last element of the right array
+	if A[j] < x
+		i = i + 1
+		swap A[i] with A[j]
+swap A[i] with A[r]
+return i
 */
 
-int Partition(int* arr, int p, int r)
+int Partition_bk(int* arr, int p, int r)
 {
 	int x = arr[r];
 	int i = p - 1;
 	for (int j = p; j <= r - 1; ++j)
 	{
-		if (arr[j] <= x)
+		if (arr[j] < x)
 		{
 			Swap(arr[++i], arr[j]);
 		}
 	}
 	Swap(arr[++i], arr[r]);
+	return i;
+}
+
+int Partition(int* arr, int p, int r)
+{
+	int x = arr[p];
+	int i = p;
+	for (int j = p + 1; j <= r; ++j)
+	{
+		if (arr[j] < x)
+		{
+			Swap(arr[++i], arr[j]);
+		}
+	}
+	Swap(arr[i], arr[p]);
 	return i;
 }
 
