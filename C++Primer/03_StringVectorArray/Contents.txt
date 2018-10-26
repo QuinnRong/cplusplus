@@ -1,0 +1,73 @@
+第三章 字符串、向量和数组
+
+/**********
+@3.1 命名空间的using声明
+**********/
+using std::cin;
+
+/**********
+@3.2 标准库类型string
+**********/
+
+3.2.1 定义和初始化string对象
+初始值只有一个参数时,
+直接初始化(direct initialization) --> string s(s0); string s("value");
+拷贝初始化(copy initialization)   --> string s = s0; sting s = "value";
+若使用explicit可抑制构造函数隐式转换，则sting s = "value"将出错
+初始值有多个参数时,
+直接初始化 --> string s(n, 'c');
+拷贝初始化 --> string s = string(n, 'c');
+
+3.2.2 string对象上的操作
+#读
+is >> s;         --> 忽略开头空白(空格符、换行符、制表符等)，遇到下一处空白为止，返回is
+getline(is, s);  --> 不忽略空白，遇到换行符为止(s不保存换行符)，返回is
+#写
+os << s;
+#大小
+s.empty();  --> bool
+s.size();   --> string::size_type(无符号类型，足够存放任何string对象的大小) -> s.size() < -1几乎肯定为true
+#比较
+==, !=, <, <=, >, >=  --> 依照大小写敏感的字典顺序比较
+#赋值
+s1 = s2  --> 用s2的副本替换s1的内容
+#相加
+s3 = s1 + s2; s2 += s1;
+字面值和string相加 --> s3 = s1 + "value"; s3 = "value" + s1; --> 加号两侧至少有一个对象是string
+
+3.2.3 处理string对象中的字符
+#<cctype>
+isalnum, isalpha, isdigit, isxdigit, ispunct, iscntrl, isspace, isgraph, isprint, islower, isupper;
+tolower, toupper;
+#range for
+for (declaration: expression)
+	statement
+expression 	--> 表示一个序列
+declaration --> 每次迭代被初始化为expression中的下一个元素值
+#下标运算符[]
+超出范围引发不可预知结果(c++标准不要求标准库检测下标是否合法)
+
+/**********
+@标准库类型vector
+**********/
+
+3.3.1 定义和初始化vector对象
+默认初始化     --> vector<T> v --> 空vector
+直接初始化     --> vector<T> v1(v2); vector<T> v1{a,b,c...};
+拷贝初始化     --> vector<T> v1 = v2; vector<T> v1 = {a,b,c...};
+指定数量初始化 --> vector<T> v(n); vector<T> v(n, val);	// explicit
+
+3.3.2 向vector对象中添加元素
+v.push_back(t);
+
+3.3.3 其他vector操作
+v.empty();
+v.size();
+==, !=, <, <=, >, >=;
+=;
+[];
+
+/**********
+@3.4 迭代器介绍
+**********/
+

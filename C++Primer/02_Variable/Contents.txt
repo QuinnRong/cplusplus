@@ -12,13 +12,13 @@
 2.1.2 类型转换
 布尔   <--> 非布尔
 浮点数 <--> 整型数
-无符号类型超出范围 -> 取模后的余数 (unsigned char c = -1 -> 原码10000001，反码11111110，补码11111111 -> c = 255)
-带符号类型超出范围 -> 未定义 (signed char c = 256 -> c的值未定义)
+无符号类型超出范围 --> 取模后的余数 (unsigned char c = -1 --> 原码10000001，反码11111110，补码11111111 -> c = 255)
+带符号类型超出范围 --> 未定义 (signed char c = 256 -> c的值未定义)
 表达式中既有无符号数又有带符号数，则带符号数自动转为无符号数 (int a = -1; unsigned b = 1; -> a*b = 2^32 - 1, a > b is true)
 
 2.1.3 字面值常量
-0开头      -> 八进制
-0x或0X开头 -> 十六进制
+0开头      --> 八进制
+0x或0X开头 --> 十六进制
 
 /**********
 @2.2 变量
@@ -26,16 +26,16 @@
 具名的存储空间
 
 2.2.1 变量定义
-直接初始化(direct-initialization)  -> int a(0); int a{0};
-拷贝初始化(copy-initialization)    -> int a = 0; int a = {0};
-默认初始化(default-initialization) -> 定义于任何函数之外的变量被初始化为0
+直接初始化(direct-initialization)  --> int a(0); int a{0};
+拷贝初始化(copy-initialization)    --> int a = 0; int a = {0};
+默认初始化(default-initialization) --> 定义于任何函数之外的变量被初始化为0
 其中花括号代表列表初始化，要求不存在信息丢失(例如double -> int会报错)
 
 2.2.2 变量声明和定义的关系
 为支持分离式编译(separate compilation)，C++语言将声明(declaration)和定义(definition)区分开来
-变量声明   -> extern, 无显式初始化 -> extern int i;
-变量定义   -> extern, 有显式初始化 -> extern int i = 1;
-声明并定义 -> int i; int i = 1;
+变量声明   --> extern, 无显式初始化 --> extern int i;
+变量定义   --> extern, 有显式初始化 --> extern int i = 1;
+声明并定义 --> int i; int i = 1;
 变量定义必须在并且只出现在一个文件中
 
 2.2.3 标识符
@@ -55,41 +55,41 @@
 基本数据类型(base type) + 声明符(declarator)列表
 
 2.3.1 引用
-type &d -> 必须初始化
+type &d --> 必须初始化
 
 2.3.2 指针
-type *d -> 允许赋值、拷贝、指向不同对象；无需在定义时赋值
+type *d --> 允许赋值、拷贝、指向不同对象；无需在定义时赋值
 
 2.3.3 理解复合类型的声明
 int *p1, *p2; 或者 int* p1; int* p2;
-指向指针的指针 -> int **ppi = &p1;
-指向指针的引用 -> int *&r = p1;
+指向指针的指针 --> int **ppi = &p1;
+指向指针的引用 --> int *&r = p1;
 
 /**********
 @2.4 const限定符
 **********/
-必须初始化 -> 运行是初始化或编译时初始化
+必须初始化 --> 运行是初始化或编译时初始化
 const对象仅在文件内有效(可在多个文件中出现同名的const变量，相互独立)
 
 2.4.1 const的引用
-对常量的引用(reference to const) ->  不能通过引用来改变对象
-对常量的引用可能引用一个非常量对象 -> int i = 0; const int& r = i;
-对常量的引用可以引用一个字面值 -> const int& r = 42;
-允许任意表达式作为初始值，只要表达式结果能转换成引用的类型(本质上会生成一个临时常量) -> const double& r2 = i;
+对常量的引用(reference to const) -->  不能通过引用来改变对象
+对常量的引用可能引用一个非常量对象 --> int i = 0; const int& r = i;
+对常量的引用可以引用一个字面值 --> const int& r = 42;
+允许任意表达式作为初始值，只要表达式结果能转换成引用的类型(本质上会生成一个临时常量) --> const double& r2 = i;
 
 2.4.2 const的指针
-指向常量的指针(pointer to const) -> 不能通过指针改变对象
-指向常量的指针可能指向一个非常量对象 -> double pi = 3.14; const double* c = &pi;
-常量指针(const pointer) -> 指针本身的值是常量 -> double *const pip = &pi;
+指向常量的指针(pointer to const) --> 不能通过指针改变对象
+指向常量的指针可能指向一个非常量对象 --> double pi = 3.14; const double* c = &pi;
+常量指针(const pointer) --> 指针本身的值是常量 --> double *const pip = &pi;
 
 2.4.3 顶层和底层const
-顶层const(top-level const) -> 表示指针本身是常量 -> 对拷贝操作无影响
-底层const(low-level const) -> 表示指针所指对象是常量 -> 拷贝时，底层const必须相同或可以转换(非常量可以转换成常量，反之不行)
+顶层const(top-level const) --> 表示指针本身是常量 ->- 对拷贝操作无影响
+底层const(low-level const) --> 表示指针所指对象是常量 --> 拷贝时，底层const必须相同或可以转换(非常量可以转换成常量，反之不行)
 
 2.4.4 constexpr和常量表达式
-常量表达式 -> 值不会改变并且在编译过程就能得到计算结果的表达式
+常量表达式 --> 值不会改变并且在编译过程就能得到计算结果的表达式
 字面值属于常量表达式、用常量表达式初始化的const对象也是常量表达式
-声明为constexpr的变量 -> 便于编译器验证变量值是否是一个常量表达式
+声明为constexpr的变量 --> 便于编译器验证变量值是否是一个常量表达式
 
 /**********
 @2.5 处理类型
@@ -101,14 +101,14 @@ using wages = double;
 
 2.5.2 auto类型说明符
 auto让编译器通过初始值来推算变量的类型
-编译器以引用对象的类型作为auto的类型 -> int i = 0, &r = i; auto a = r; -> a是一个整数
+编译器以引用对象的类型作为auto的类型 --> int i = 0, &r = i; auto a = r; --> a是一个整数
 auto一般忽略顶层const，保留底层const
-auto可设置成const或引用类型 -> const auto &j = 42
+auto可设置成const或引用类型 --> const auto &j = 42
 
 2.5.3 decltype类型指示符
 从表达式的类型推断要定义的变量的类型，但不需要该表达式的值初始化变量
-decltype处理引用和顶层const与auto不同 -> 保存引用和顶层const
-双层括号decltype((variable)) -> 结果永远是引用
+decltype处理引用和顶层const与auto不同 --> 保存引用和顶层const
+双层括号decltype((variable)) --> 结果永远是引用
 
 /**********
 @2.6 自定义数据结构

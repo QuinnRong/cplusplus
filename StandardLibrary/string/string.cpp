@@ -18,6 +18,7 @@ memset:
     value is interpreted as an unsigned char (true as 1, false as 0).
 
 @<string>
+#Member functions
 to_string:
     string to_string (int||long||unsigned||float||double val);
 c_str:
@@ -38,12 +39,23 @@ stof:
 stod:
     double stod (const string&  str, size_t* idx = 0);
     double stod (const wstring& str, size_t* idx = 0);
+#Non-member function overloads
 getline:
     istream& getline (istream&  is, string& str, char delim);
     istream& getline (istream&& is, string& str, char delim);
     istream& getline (istream&  is, string& str);
     istream& getline (istream&& is, string& str);
     default delimitation is the newline character, '\n'.
+operator>>:
+    istream& operator>> (istream& is, string& str);
+    This function overloads operator>> to behave as described in istream::operator>> for c-strings,
+    but applied to string objects.
+    Each extracted character is appended to the string as if its member push_back was called.
+    The istream extraction operations use whitespaces as separators;
+    Therefore, this operation will only extract what can be considered a word from the stream.
+operator<<:
+    ostream& operator<< (ostream& os, const string& str);
+    Inserts the sequence of characters that conforms value of str into os.
 ****/
 
 int main()
