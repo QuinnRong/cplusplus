@@ -70,4 +70,18 @@ v.size();
 /**********
 @3.4 迭代器介绍
 **********/
+比下标运算[]更通用的访问标准库容器元素的机制 --> 迭代器(iterator) --> 所有标准库容器都可以用
 
+3.4.1 使用迭代器
+*iter, iter->mem, ++iter, --iter;
+==, !=;
+begin()  --> 指向第一个元素; end()  --> 尾后迭代器(off-the-end iterator);
+如果容器对象是常量，只能用const_iterator --> begin和end返回const_iterator;
+如果容器对象不是常量，iterator和const_iterator都能用 --> begin和end返回iterator;
+cbegin和cend始终返回const_iterator;
+改变容器对象容量的操作可能使其迭代器失效;
+
+3.4.2 迭代器运算
+string和vector的迭代器提供了更多额外运算符(iterator arithmetic)
+iter + n, iter - n, iter += n, iter -= n, iter1 - iter2; 
+<, <=, >, >=;
