@@ -55,6 +55,7 @@ declaration --> 每次迭代被初始化为expression中的下一个元素值
 默认初始化     --> vector<T> v --> 空vector
 直接初始化     --> vector<T> v1(v2); vector<T> v1{a,b,c...};
 拷贝初始化     --> vector<T> v1 = v2; vector<T> v1 = {a,b,c...};
+值初始化       --> vector<int> v(10); --> 10个元素都初始化为0
 指定数量初始化 --> vector<T> v(n); vector<T> v(n, val);	// explicit
 
 3.3.2 向vector对象中添加元素
@@ -85,3 +86,50 @@ cbegin和cend始终返回const_iterator;
 string和vector的迭代器提供了更多额外运算符(iterator arithmetic)
 iter + n, iter - n, iter += n, iter -= n, iter1 - iter2; 
 <, <=, >, >=;
+
+/**********
+@3.5 数组
+**********/
+数组的大小确定不变
+
+3.5.1 定义和初始化内置数组
+type a[d];
+数组中元素的个数也属于数组类型的一部分，编译的时候应该是已知的(常量表达式)
+数组中的元素被默认初始化
+列表初始化时，若没有指明数组维度，编译器会根据初始值的数量推测出来; 若指明了维度(不能小于初始值数量)，剩余元素默认值初始化(0)
+字符数组额外的初始化形式 --> 字符串字面值初始化 --> 自动添加'\0'
+指向数组的指针 --> type (*pArray)[n];
+包含指针的数组 --> type *arr[d];
+
+3.5.2 访问数组元素 
+range for --> for (auto i : a) { };  --> 因为维度是数组类型的一部分
+[]        --> size_t id; i = a[id];  --> 索引值id通常采用size_t类型(无符号)，但是也可以是用负数
+		  --> a = a + 2; a[-1] == a[1];
+
+3.5.3 指针和数组
+使用数组时，编译器一般会把它转换成指针  --> type *p = &a[0]; <--> type *p = a; <--> auto p(a);
+使用decltype关键字时，上述转换不会发生 --> decltype(a) ia; <--> type ia[d];
+iterator头文件提供两个函数 --> type *beg = begin(a); type *end = end(a); --> 首元素指针和尾后指针
+两个指针相减的结果为ptrdiff_t类型
+
+3.5.4 C风格字符串
+C-style character string --> 不是一种类型，而是一种约定俗成的写法
+cstring头文件包含一组函数可以操作C风格字符串，输入必须以'\0'结尾
+strlen(p) 	   --> 字符串长度，不计空字符
+strcmp(p1, p2) --> p1 == p2, return 0; p1 < p2, return 负值; p1 > p2, return 正值;
+strcat(p1, p2) --> p2附加到p1, 返回p1;
+strcpy(p1, p2) --> p2拷贝给p1, 返回p1;
+
+3.5.5 与旧代码的接口
+任何出现字符串字面值的地方都可以用空字符结束的字符数组来替代 --> string s = p;
+需要C风格字符串的地方需要用string提供的c_str()成员函数     --> char *str = s.c_str();
+无法保证c_str()返回的数组一直有效 --> 若后续s的尺寸变化，c_str()可能变成未定义
+使用数组初始化vector对象 --> vector<type> v(begin(a), end(a)); --> 提供首元素地址和尾后地址
+
+
+/**********
+@3.6 多维数组
+**********/
+多维数组本质上是数组的数组
+初始化可以内层嵌套着花括号，也可不用，若少于维度定义的元素个数，剩余元素默认值初始化(0)
+range for语句遍历多维数组，除了内层循环外，其他所有循环的控制变量都应该是引用类型，以避免数组自动转成指针

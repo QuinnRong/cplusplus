@@ -10,7 +10,7 @@ ITER binary_search(ITER beg, ITER end, V sought)
 	while (mid != end && *mid != sought)
 	{
 		if (*mid > sought)
-			end = mid;
+			end = mid;			// cannot be mid - 1, because mid can be equal to beg
 		else
 			beg = mid + 1;
 		mid = beg + (end - beg) / 2;

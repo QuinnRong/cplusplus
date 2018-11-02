@@ -21,6 +21,8 @@ abs:
           float abs (      float x);
     long double abs (long double x);
          double abs (          T x);           // additional overloads for integral types
+lgamma:
+    double lgamma  (double x);
 
 @<cstdlib>
 abs:
@@ -44,6 +46,11 @@ int main()
 
     int s = 10;
     printf("sqrt(%d) = %f\n", s, sqrt(s));
+
+    printf("pi = %f\n", M_PI);
+
+    for (int dim = 0; dim < 5; ++dim)
+      printf("gamma(1 + %d / 2) = %f\n", dim, exp(lgamma(1 + dim / 2.0)));
 }
 
 /*
@@ -54,4 +61,10 @@ log(10) = 2.302585
 log2(10) = 3.321928
 log10(10) = 1.000000
 sqrt(10) = 3.162278
+pi = 3.141593
+gamma(1 + 0 / 2) = 1.000000
+gamma(1 + 1 / 2) = 0.886227
+gamma(1 + 2 / 2) = 1.000000
+gamma(1 + 3 / 2) = 1.329340
+gamma(1 + 4 / 2) = 2.000000
 */
