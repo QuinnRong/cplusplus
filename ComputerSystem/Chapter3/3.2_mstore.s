@@ -1,4 +1,4 @@
-	.file	"mstore.c"
+	.file	"3.2_mstore.c"
 	.text
 	.globl	multstore
 	.def	multstore;	.scl	2;	.type	32;	.endef
