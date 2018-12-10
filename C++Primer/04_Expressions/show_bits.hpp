@@ -6,24 +6,38 @@
 
 typedef unsigned char *byte_pointer;
 
-const char hex_map[16][5] = {"0000","0001","0010","0011",
-							 "0100","0101","0110","0111",
-							 "1000","1001","1010","1011",
-							 "1100","1101","1110","1111"};
+const char hex_map[16][5] = 
+{
+	"0000","0001","0010","0011",
+	"0100","0101","0110","0111",
+	"1000","1001","1010","1011",
+	"1100","1101","1110","1111"
+};
 
 char* hex2bits(char c)
-{
+{	/*
+	input: character of 0~9 or a~f
+	output: binary form
+	*/
 	if (c >= '0' && c <= '9')
 		return (char*) hex_map[c - '0'];
 	else if (c >= 'a' && c <= 'f')
 		return (char*) hex_map[c - 'a' + 10];
 	else
-		printf("invalid hex character\n");
+		printf("invalid hex character: %c\n", c);
 	exit(-1);
 }
 
 void show_bits(byte_pointer start, size_t len)
-{
+{	/*
+	input: an array with len bytes
+	output: 8*bits grouped by bytes
+	*/
+	if (len >= 127)
+	{
+		printf("input too long\n");
+		return;
+	}
 	char str[256];
 	size_t i;
 	for (i = 0; i < len; ++i)
@@ -34,8 +48,7 @@ void show_bits(byte_pointer start, size_t len)
 	while (*iter != '\0')
 	{
 		printf("%c%c: %s%s\n", *iter, *(iter + 1), hex2bits(*iter), hex2bits(*(iter + 1)));
-		++iter;
-		++iter;
+		iter += 2;
 	}
 }
 

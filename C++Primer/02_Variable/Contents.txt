@@ -109,6 +109,8 @@ auto可设置成const或引用类型 --> const auto &j = 42
 从表达式的类型推断要定义的变量的类型，但不需要该表达式的值初始化变量
 decltype处理引用和顶层const与auto不同 --> 保存引用和顶层const
 双层括号decltype((variable)) --> 结果永远是引用
+decltype(lvalue表达式) 结果是对变量类型的引用 --> int *p; decltype(*p) --> int&
+decltype(rvalue表达式) 结果是变量类型        --> int *p; decltype(&p) --> int**
 
 /**********
 @2.6 自定义数据结构
