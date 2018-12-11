@@ -1,0 +1,84 @@
+第五章 语句
+
+C++提供影响程序控制流程(flow of control)的语句：条件语句，循环语句，跳转语句和try语句
+除此之外还有：表达式语句和声明语句
+
+/**********
+5.1 基础
+**********/
+大多数语句以分号结束
+表达式语句(expression statement)  --> 执行表达式并丢掉求值结果
+空语句(null statement ;)          --> 语法上需要一条语句而逻辑上不需要时使用
+复合语句(compound statement)      --> 语法上需要一条语句而逻辑上需要多条时使用，花括号括起来的语句和声明序列，也称块(block)
+空块({ })						 --> 作用等价于空语句
+
+/**********
+5.2 语句作用域
+**********/
+一个块就是一个作用域
+可以在if, switch, while, for语句(do while不行)的控制结构内定义变量，只在相应语句的内部可见，每次迭代时创建并初始化
+
+/**********
+5.3 条件语句
+**********/
+C++提供两种按条件指向的语句，if，switch
+
+5.3.1 if语句
+悬垂else(dangling else) --> if分支多于else分支 --> else与离它最近的未匹配的if匹配
+
+5.3.2 switch语句
+case标签(case label) --> 必须是整型常量表达式，不能重复
+内部控制流           --> 如果某个case标签匹配，将从该标签开始往后顺序执行所有case分支，除非程序显式中断这一过程
+default标签          --> 如果没有任何一个case标签匹配，则执行default标签后面的语句
+
+/**********
+5.4 循环语句
+**********/
+C++提供四种循环语句，while，for，range for，do while
+
+int i = 0; while (cin >> i) { //... }     <==> for (int i = 0; cin >> i; ) { //... }
+int i = 0; while (cin >> i) { //... ++i;} <==> for (int i = 0; cin >> i; ++i) { //... }
+for (init-statement; condition; expression) --> init-statement只能有一条声明语句(所有变量的基础类型必须相同)
+for (declaration : expression)              --> expression必须是一个序列(花括号括起来的初始值列表，数组，vector，string等)      /* c++11 */
+do statement while(condition);              --> 不允许在condition部分定义变量
+
+/**********
+5.5 跳转语句
+**********/
+C++提供四种跳转语句，break，continue，goto，return
+
+break语句     --> 终止离它最近的循环语句或switch语句
+continue语句  --> 终止最近的循环中的当前迭代，并立即开始下一次迭代
+goto语句      --> 无条件跳转到同一函数内的一个带标签语句(labeled statement)，label: statement;
+return语句    --> 终止函数执行
+
+/**********
+5.6 try语句
+**********/
+throw表达式(throw exception)  --> 抛出(引发)异常(raise exception)  --> 中断当前执行路径，把控制权转移到能处理该异常的最近的catch子句
+try语句块(try block)          --> 通过catch子句(exception handler)处理异常
+
+try
+{
+	program-statements	// including throw exceptions
+}
+catch (exception-declaration)
+{
+	handler-statements
+}
+catch (exception-declaration)
+{
+	handler-statements
+} // ...
+
+嵌套的try语句块 --> 从内层到外层的顺序匹配，若所有层都没有匹配的catch子句，程序转到terminate标准库函数(行为与系统有关，通常导致非正常退出)
+异常安全代表    --> exception safe，在异常发生期间正确执行了“清理”工作 --> 编写非常困难
+
+C++标准异常包括在四个头文件中：
+1) exception头文件定义了异常类 --> exception --> 只能默认初始化，只报告异常的发生，不提供任何额外信息
+2) new头文件定义了异常类       --> bad_alloc --> 只能默认初始化
+3) type_info头文件定义了异常类 --> bad_cast  --> 只能默认初始化
+4) stdexcept头文件定义了异常类 --> exception, runtime_error, overflow_error, underflow_error等 --> 只能使用string或C风格字符串初始化
+
+异常类(exception class)只定义了一个名为what的成员函数，返回一个指向C风格字符串的const char*
+对于无初始值的异常类，what返回内容由编译器决定；对于有字符串初始值的异常类，what返回该字符串
